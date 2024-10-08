@@ -16,7 +16,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Bordspellen")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+04288eff13e99fed139426a09042dae05a2d6642")]
 [assembly: System.Reflection.AssemblyProductAttribute("Bordspellen")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Bordspellen")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
