@@ -21,17 +21,20 @@ jobs:
         with:
           dotnet-version: '8.x'
 
+      - name: Restore dependencies
+        run: dotnet restore
+
       - name: Build with dotnet
         run: dotnet build --configuration Release
 
-      - name: dotnet publish
-        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+      - name: Publish the .NET app
+        run: dotnet publish -c Release -o myapp
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: .net-app
-          path: ${{env.DOTNET_ROOT}}/myapp
+          path: myapp
 
   deploy:
     runs-on: windows-latest
@@ -47,13 +50,14 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: .net-app
-      
+          path: myapp-download
+
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_36ABDB4A544347BD98A59527F892E5C8 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_283F5E25CB194D33856AB16423EC2B4F }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_10859586135745E4BA6C01C44D348AAE }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID }}
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
@@ -61,5 +65,4 @@ jobs:
         with:
           app-name: 'bordspel'
           slot-name: 'Production'
-          package: .
-          
+          package: myapp-download
